@@ -1,0 +1,19 @@
+public class Solution {
+    public double Power(double base, int exponent) {
+        int n;
+        if(exponent==0){
+            return 1;
+        }else if(exponent==1){
+            return base;
+        }else if(exponent<0){
+            n=-exponent;
+        }else{
+            n=exponent;
+        }
+        double result = Power(base,n>>1);
+        result *= result;
+        if((exponent&1)==1)
+            result *= base;
+        return exponent>0?result:(1/result);
+  }
+}
