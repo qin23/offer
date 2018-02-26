@@ -1,0 +1,44 @@
+/*
+public class RandomListNode {
+    int label;
+    RandomListNode next = null;
+    RandomListNode random = null;
+
+    RandomListNode(int label) {
+        this.label = label;
+    }
+}
+*/
+import java.util.HashMap;
+
+public class Solution {
+    public RandomListNode Clone(RandomListNode pHead)
+    {
+        if(pHead == null)
+            return null;
+        HashMap<RandomListNode,RandomListNode> map = new HashMap<RandomListNode,RandomListNode>();
+        RandomListNode newHead = new RandomListNode(pHead.label);
+        RandomListNode pre = pHead;
+        RandomListNode newPre = newHead;
+        map.put(pre,newPre);
+        
+        //第一步，hashMap保存，原链表节点映射复制链表节点
+        while(pre.next != null){
+            newPre.next = new RandomListNode(pre.next.label);
+            pre = pre.next;
+            newPre = newPre.next;
+            map.put(pre,newPre);
+        }
+        
+        //第二步，找到对应的random
+        pre = pHead;
+        newPre = newHead;
+        
+        while(pre.next != null){
+            newPre.random = map.get(pre.random);
+            pre = pre.next;
+            newPre = newPre.next;
+        }
+        return newHead;
+    }
+}
